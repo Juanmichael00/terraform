@@ -1,16 +1,25 @@
 provider "aws" {
-
-region = "us-west-2"
-
+  region  = "region"
+  profile = "user cli"
 }
 
 resource "aws_s3_bucket" "my-test-bucket" {
-  bucket = "my-tf-test-bucket-75331181"
+
+  bucket = "nome-bucket"
 
   tags = {
     Name        = "My bucket"
     Environment = "Dev"
-    Managedby = "Terraform"
+    Managedby   = "Terraform"
+    Autor       = "name"
   }
+
 }
 
+output "my-test-bucket" {
+  value = aws_s3_bucket.my-test-bucket.bucket
+}
+
+output "my-test-bucket_arn" {
+  value = aws_s3_bucket.my-test-bucket.arn
+}
