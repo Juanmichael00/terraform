@@ -1,13 +1,13 @@
 provider "aws" {
-  region  = "region"
-  profile = "your user CLI"
+  region  = var.aws_region
+  profile = var.aws_profile
 }
 
 module "efs" {
   source = "terraform-aws-modules/efs/aws"
 
   # File system
-  name           = "efs-tf"
+  name           = var.efs_name
   creation_token = "example-token"
   encrypted      = true
   #  kms_key_arn    = "arn:aws:kms:eu-west-1:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
@@ -28,7 +28,7 @@ module "efs" {
 
   # Security group for EFS
   security_group_description = "SG-efs-tf"
-  security_group_vpc_id      = "vpc-id"
+  security_group_vpc_id      = var.vpc_id
   security_group_rules = {
     vpc = {
       # relying on the defaults provided for EFS/NFS (2049/TCP + ingress)
